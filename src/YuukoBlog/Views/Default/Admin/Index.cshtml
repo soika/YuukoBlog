@@ -1,6 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Html
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
     ViewBag.Title = SR["Admin Panel"];
 }
+
 @if (Html.IsRaw())
 {
     @(new HtmlString("<div>"))

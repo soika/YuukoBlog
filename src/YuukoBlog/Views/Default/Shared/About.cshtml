@@ -1,5 +1,6 @@
 ﻿@using YuukoBlog.Models
-@if (Model != null && Model.GetType() != typeof(Post))
+
+@if (Model != null && Model?.GetType() != typeof(Post))
 {
 <div class="sidebar-module sidebar-about">
     <h3>ABOUT</h3>

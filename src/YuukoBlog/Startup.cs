@@ -10,6 +10,7 @@
     using Microsoft.Extensions.Logging;
     using Models;
     using Pomelo.AspNetCore.Localization;
+    using WebMarkupMin.AspNetCore1;
 
     public class Startup
     {
@@ -42,11 +43,29 @@
                     new JsonLocalizedStringStore(Path.Combine("Localization", "zh-CN.json")));
                 x.AddCulture(new[] {"en", "en-US", "en-GB"},
                     new JsonLocalizedStringStore(Path.Combine("Localization", "en-US.json")));
+                x.AddCulture(new[] { "vi", "vi-VN", "vi-VN" },
+                    new JsonLocalizedStringStore(Path.Combine("Localization", "vi-VN.json")),
+                    true);
             });
 
             services.AddMvc()
                 .AddMultiTemplateEngine()
                 .AddCookieTemplateProvider();
+
+            //services.AddWebMarkupMin(
+            //        options =>
+            //        {
+            //            options.AllowMinificationInDevelopmentEnvironment = true;
+            //            options.AllowCompressionInDevelopmentEnvironment = true;
+            //        })
+            //    .AddHtmlMinification(
+            //        options =>
+            //        {
+            //            options.MinificationSettings.RemoveRedundantAttributes = true;
+            //            options.MinificationSettings.RemoveHttpProtocolFromAttributes = true;
+            //            options.MinificationSettings.RemoveHttpsProtocolFromAttributes = true;
+            //        })
+            //    .AddHttpCompression();
 
             //services.AddTimedJob();
         }
@@ -56,6 +75,7 @@
             loggerFactory.AddConsole(LogLevel.Warning, true);
 
             app.UseStaticFiles();
+            //app.UseWebMarkupMin();
             app.UseSession();
             app.UseBlobStorage("/assets/shared/scripts/jquery.codecomb.fileupload.js");
             app.UseDeveloperExceptionPage();

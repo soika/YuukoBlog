@@ -1,15 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using YuukoBlog.Models
-@if (Model != null && Model.GetType() == typeof(Post) && (Context.Session.GetString("Admin") == "true" || !Model.IsPage))
+
+@if (Model != null && Model?.GetType() == typeof(Post) && (Context.Session.GetString("Admin") == "true" || !Model?.IsPage))
 {
     <div class="sidebar-module sidebar-postinfo">
         <h3>THIS POST</h3>
         <div class="sidebar-body">
-            @if (!Model.IsPage)
+            @if (!Model?.IsPage)
             {
                 <div class="sidebar-post-time sidebar-item"><span class="icon-time icon"></span> @Model.Time.ToString()</div>
-                @if (Model.Tags.Count > 0)
+                if (Model.Tags.Count > 0)
                 {
                     <div class="sidebar-post-tags sidebar-item">
                         <span class="icon-tag icon"></span>

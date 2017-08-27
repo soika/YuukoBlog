@@ -2,7 +2,8 @@
 @using Microsoft.AspNetCore.Html
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using YuukoBlog.Models
-@model System.Collections.Generic.IEnumerable<dynamic>
+@model IEnumerable<dynamic>
+
 @{
     bool Raw = false;
     if (Html.IsRaw())
@@ -20,7 +21,7 @@
         <div class="role-body-class">@ViewBag.Position.ToLower()</div>
         <div class="role-category">@ViewBag.Position.ToLower()</div>
         <div class="role-head-title">
-            <h1>@ViewBag.Title@(ViewBag.Position == "home" ? "" : (" » " + ViewBag.Position.ToUpper()))@(ViewContext.RouteData.Values["tag"] == null ? "" : (" » " + ViewContext.RouteData.Values["tag"].ToString().ToUpper()))@(ViewContext.RouteData.Values["year"] == null ? "" : (" » " + ViewContext.RouteData.Values["year"].ToString()))@(ViewContext.RouteData.Values["month"] == null ? "" : (" » " + ViewContext.RouteData.Values["month"].ToString()))@(ViewContext.RouteData.Values["p"] == null ? "" : (" » PAGE" + ViewContext.RouteData.Values["p"].ToString()))</h1>
+            <h1>@ViewBag.Title@(ViewBag.Position == "home" ? "" : (" » " + ViewBag.Position.ToUpper()))@(ViewContext.RouteData.Values["tag"] == null ? "" : (" » " + ViewContext.RouteData.Values["tag"].ToString().ToUpper()))@(ViewContext.RouteData.Values["year"] == null ? "" : (" » " + ViewContext.RouteData.Values["year"]))@(ViewContext.RouteData.Values["month"] == null ? "" : (" » " + ViewContext.RouteData.Values["month"]))@(ViewContext.RouteData.Values["p"] == null ? "" : (" » PAGE" + ViewContext.RouteData.Values["p"]))</h1>
         </div>
     </div>
 }
@@ -37,7 +38,7 @@
                     <div class="post-tags">
                         @if (x.CatalogId != null)
                         {
-                            <div class="post-catalog-item post-catalog-item-@x.Catalog.Url.ToLower()"><a href="/catalog/@x.Catalog.Url.ToLower() %>/">@x.Catalog.Url</a></div>
+                            <div class="post-catalog-item post-catalog-item-@x.Catalog.Url.ToLower()"><a href="/catalog/@x.Catalog.Url.ToLower()/">@x.Catalog.Url.ToUpper()</a></div>
                         }
                         @foreach (PostTag t in x.Tags)
                         {

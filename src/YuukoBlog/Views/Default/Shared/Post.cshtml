@@ -1,7 +1,9 @@
-﻿@using Microsoft.AspNetCore.Html
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Html
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using YuukoBlog.Models
-@model YuukoBlog.Models.Post
+@model Post
+
 @if (Html.IsRaw())
 {
     @(new HtmlString("<div>"))
@@ -18,7 +20,7 @@
         }
         <div class="role-head-title">
             <p><h1>@Model.Title</h1></p>
-            <p><h3><span class="icon-time icon"></span> Published on @Model.Time.ToString()</h3></p>
+            <p><h3><span class="icon-time icon"></span> Published on @Model.Time.ToString(CultureInfo.InvariantCulture)</h3></p>
         </div>
     </div>
 }
