@@ -33,7 +33,8 @@ namespace YuukoBlog.Models
 
             builder.Entity<Post>(e =>
             {
-                e.HasIndex(x => x.Title).IsFullText(); // Will only work with Pomelo.EFCore.MySql
+                //e.HasIndex(x => x.Title).IsFullText(); // Will only work with Pomelo.EFCore.MySql
+                e.HasIndex(x => x.Title); // Will only work with Pomelo.EFCore.MySql
                 e.HasIndex(x => x.IsPage);
                 e.HasIndex(x => x.Time);
                 e.HasIndex(x => x.Url).IsUnique();

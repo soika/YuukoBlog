@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace YuukoBlog.Models
+﻿namespace YuukoBlog.Models
 {
+    using System;
+    using System.Collections.Generic;
+
     public class PostViewModel
     {
         public Guid Id { get; set; }

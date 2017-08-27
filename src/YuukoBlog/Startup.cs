@@ -1,16 +1,16 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Pomelo.AspNetCore.Localization;
-using YuukoBlog.Models;
-
-namespace YuukoBlog
+﻿namespace YuukoBlog
 {
+    using System;
+    using System.IO;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Models;
+    using Pomelo.AspNetCore.Localization;
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
@@ -38,15 +38,17 @@ namespace YuukoBlog
 
             services.AddPomeloLocalization(x =>
             {
-                x.AddCulture(new string[] { "zh", "zh-CN", "zh-Hans", "zh-Hans-CN", "zh-cn" }, new JsonLocalizedStringStore(Path.Combine("Localization", "zh-CN.json")));
-                x.AddCulture(new string[] { "en", "en-US", "en-GB" }, new JsonLocalizedStringStore(Path.Combine("Localization", "en-US.json")));
+                x.AddCulture(new[] {"zh", "zh-CN", "zh-Hans", "zh-Hans-CN", "zh-cn"},
+                    new JsonLocalizedStringStore(Path.Combine("Localization", "zh-CN.json")));
+                x.AddCulture(new[] {"en", "en-US", "en-GB"},
+                    new JsonLocalizedStringStore(Path.Combine("Localization", "en-US.json")));
             });
 
             services.AddMvc()
                 .AddMultiTemplateEngine()
                 .AddCookieTemplateProvider();
 
-            services.AddTimedJob();
+            //services.AddTimedJob();
         }
 
         public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
@@ -61,7 +63,7 @@ namespace YuukoBlog
 
             await SampleData.InitializeYuukoBlog(app.ApplicationServices);
 
-            app.UseTimedJob();
+            //app.UseTimedJob();
         }
 
         public static void Main(string[] args)

@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-namespace YuukoBlog.Controllers
+﻿namespace YuukoBlog.Controllers
 {
+    using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
     public class PostController : BaseController
     {
         [Route("Post/{id}")]
@@ -12,17 +12,18 @@ namespace YuukoBlog.Controllers
             var post = DB.Posts
                 .Include(x => x.Catalog)
                 .Include(x => x.Tags)
-                .Where(x => x.Url == id && !x.IsPage)
-                .SingleOrDefault();
+                .SingleOrDefault(x => x.Url == id && !x.IsPage);
             if (post == null)
+            {
                 return Prompt(x =>
                 {
                     x.StatusCode = 404;
                     x.Title = SR["Not Found"];
                     x.Details = SR["The resources have not been found, please check your request."];
-                    x.RedirectUrl = Url.Link("default", new { controller = "Home", action = "Index" });
+                    x.RedirectUrl = Url.Link("default", new {controller = "Home", action = "Index"});
                     x.RedirectText = SR["Back to home"];
                 });
+            }
             ViewBag.Title = post.Title;
             ViewBag.Position = post.CatalogId != null ? post.Catalog.Url : "home";
             return View(post);
@@ -32,17 +33,18 @@ namespace YuukoBlog.Controllers
         public IActionResult Page(string id)
         {
             var post = DB.Posts
-                .Where(x => x.Url == id && x.IsPage)
-                .SingleOrDefault();
+                .SingleOrDefault(x => x.Url == id && x.IsPage);
             if (post == null)
+            {
                 return Prompt(x =>
                 {
                     x.StatusCode = 404;
                     x.Title = SR["Not Found"];
                     x.Details = SR["The resources have not been found, please check your request."];
-                    x.RedirectUrl = Url.Link("default", new { controller = "Home", action = "Index" });
+                    x.RedirectUrl = Url.Link("default", new {controller = "Home", action = "Index"});
                     x.RedirectText = SR["Back to home"];
                 });
+            }
             ViewBag.Title = post.Title;
             ViewBag.Position = post.CatalogId.HasValue ? post.Catalog.Url : "home";
             return View("Post", post);

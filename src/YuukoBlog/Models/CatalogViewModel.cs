@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace YuukoBlog.Models
+﻿namespace YuukoBlog.Models
 {
+    using System;
+
     public class CatalogViewModel
     {
         public Guid Id { get; set; }

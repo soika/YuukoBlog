@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace YuukoBlog.Models
+﻿namespace YuukoBlog.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
     public class Post : IConvertible<PostViewModel>
     {
         public Guid Id { get; set; }
@@ -18,7 +18,7 @@ namespace YuukoBlog.Models
         public string Summary { get; set; }
 
         public string Content { get; set; }
-        
+
         public DateTime Time { get; set; }
 
         public bool IsPage { get; set; }

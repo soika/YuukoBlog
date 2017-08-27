@@ -1,4 +1,5 @@
-﻿<div class="grid_3">
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+<div class="grid_3">
     <div class="sidebar">
         @Html.Partial("PostInfo")
         @Html.Partial($"~/Views/{Template.Current.Identifier}/Shared/Catalog.cshtml")

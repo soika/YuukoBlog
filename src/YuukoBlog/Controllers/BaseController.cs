@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using YuukoBlog.Models;
-
-namespace YuukoBlog.Controllers
+﻿namespace YuukoBlog.Controllers
 {
+    using System;
+    using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Models;
+
     public class BaseController : BaseController<BlogContext>
     {
         public override void Prepare()
@@ -42,7 +42,7 @@ namespace YuukoBlog.Controllers
             ViewBag.Calendars = DB.Posts
                 .Where(x => !x.IsPage)
                 .OrderByDescending(x => x.Time)
-                .GroupBy(x => new { Year = x.Time.Year, Month = x.Time.Month })
+                .GroupBy(x => new {x.Time.Year, x.Time.Month})
                 .Select(x => new CalendarViewModel
                 {
                     Year = x.Key.Year,

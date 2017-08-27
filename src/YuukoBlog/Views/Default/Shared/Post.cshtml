@@ -1,4 +1,7 @@
-﻿@model Post
+﻿@using Microsoft.AspNetCore.Html
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using YuukoBlog.Models
+@model YuukoBlog.Models.Post
 @if (Html.IsRaw())
 {
     @(new HtmlString("<div>"))

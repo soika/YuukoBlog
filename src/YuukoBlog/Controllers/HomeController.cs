@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using YuukoBlog.Models;
-
-namespace YuukoBlog.Controllers
+﻿namespace YuukoBlog.Controllers
 {
+    using System;
+    using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Models;
+
     public class HomeController : BaseController
     {
         [Route("{p:int?}")]
@@ -35,17 +35,18 @@ namespace YuukoBlog.Controllers
         public IActionResult Catalog(string id, int p = 1)
         {
             var catalog = DB.Catalogs
-                .Where(x => x.Url == id)
-                .SingleOrDefault();
+                .SingleOrDefault(x => x.Url == id);
             if (catalog == null)
+            {
                 return Prompt(x =>
                 {
                     x.StatusCode = 404;
                     x.Title = SR["Not Found"];
                     x.Details = SR["The resources have not been found, please check your request."];
-                    x.RedirectUrl = Url.Link("default", new { controller = "Home", action = "Index" });
+                    x.RedirectUrl = Url.Link("default", new {controller = "Home", action = "Index"});
                     x.RedirectText = SR["Back to home"];
                 });
+            }
             ViewBag.Position = catalog.Url;
             return PagedView<PostViewModel, Post>(DB.Posts
                 .Include(x => x.Tags)
@@ -58,22 +59,22 @@ namespace YuukoBlog.Controllers
         public IActionResult Tag(string tag, int p = 1)
         {
             return PagedView<PostViewModel, Post>(DB.Posts
-                 .Include(x => x.Tags)
-                 .Include(x => x.Catalog)
-                 .Where(x => !x.IsPage)
-                 .Where(x => x.Tags.Any(y => y.Tag == tag))
-                 .OrderByDescending(x => x.Time), 5, "Home");
+                .Include(x => x.Tags)
+                .Include(x => x.Catalog)
+                .Where(x => !x.IsPage)
+                .Where(x => x.Tags.Any(y => y.Tag == tag))
+                .OrderByDescending(x => x.Time), 5, "Home");
         }
 
         [Route("Search/{id}/{p:int?}")]
         public IActionResult Search(string id, int p = 1)
         {
             return PagedView<PostViewModel, Post>(DB.Posts
-                    .Include(x => x.Tags)
-                    .Include(x => x.Catalog)
-                    .Where(x => !x.IsPage)
-                    .Where(x => x.Title.Contains(id) || id.Contains(x.Title))
-                    .OrderByDescending(x => x.Time), 5, "Home");
+                .Include(x => x.Tags)
+                .Include(x => x.Catalog)
+                .Where(x => !x.IsPage)
+                .Where(x => x.Title.Contains(id) || id.Contains(x.Title))
+                .OrderByDescending(x => x.Time), 5, "Home");
         }
 
         public IActionResult Template(string Folder, [FromHeader] string Referer)

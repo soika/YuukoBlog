@@ -1,4 +1,8 @@
-﻿@model IEnumerable<dynamic>
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Html
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using YuukoBlog.Models
+@model System.Collections.Generic.IEnumerable<dynamic>
 @{
     bool Raw = false;
     if (Html.IsRaw())
